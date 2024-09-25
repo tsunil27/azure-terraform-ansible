@@ -1,10 +1,26 @@
-# ansible/playbook.yml
 
-- name: Configure Azure VM with Ansible
-  hosts: all
-  become: yes
+- name: Deploy infrastructure with Terraform
+  hosts: localhost
   tasks:
-    - name: Install Apache
+    - name: Install Terraform
       apt:
-        name: apache2
+        name: terraform
         state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Initialize Terraform
+      command: terraform init
+      args:
+        chdir: /path/to/your/terraform/directory
+
+    - name: Plan Terraform
+      command: terraform plan
+      args:
+        chdir: /path/to/your/terraform/directory
+      register: plan_output
+
+    - name: Apply Terraform
+      command: terraform apply -auto-approve
+      args:
+        chdir: /path/to/your/terraform/directory
+      when: plan_output.stdout is defined
