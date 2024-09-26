@@ -1,6 +1,6 @@
 provider "azurerm" {
   features {}
-  subscription_id = var.subscription_id   # Use a variable for flexibility
+  subscription_id = "ae6e5027-d51b-4ead-b090-1055273702f8"   # Use a variable for flexibility
 }
 
 
