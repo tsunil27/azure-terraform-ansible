@@ -1,13 +1,4 @@
-# variables.tf
-
-variable "resource_group_name" {
+variable "subscription_id" {
+  description = "The subscription ID for the Azure account"
   type        = string
-  description = "Name of the Azure resource group."
-  default     = "myResourceGroup"
-}
-
-variable "location" {
-  type        = string
-  description = "Azure location for resources."
-  default     = "East US"
 }
