@@ -1,10 +1,31 @@
-
-- name: Initialize Terraform
-  hosts: localhost  # Target the localhost
-  gather_facts: no  # Set to no if you don’t need facts
+- name: Initialize and Apply Terraform
+  hosts: localhost
+  gather_facts: no
   tasks:
+    - name: Print current working directory
+      command: pwd
+      register: pwd_output
+
+    - name: Show current working directory
+      debug:
+        msg: "Current working directory is: {{ pwd_output.stdout }}"
+
     - name: Initialize Terraform
-      command: terraform init      
+      command: terraform init
       args:
-        chdir: ./../terraform/ 
-        # Change to your Terraform directory
+        chdir: ./../terraform/
+
+    - name: Apply Terraform Configuration
+      command: terraform apply -auto-approve
+      args:
+        chdir: ./../terraform/
+
+    - name: Get Terraform Output
+      command: terraform output resource_group_name  # Specify the output variable name
+      args:
+        chdir: ./../terraform/
+      register: output_result
+
+    - name: Show Resource Group Name
+      debug:
+        msg: "Resource Group Name: {{ output_result.stdout }}"
