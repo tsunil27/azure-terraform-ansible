@@ -15,11 +15,6 @@
       args:
         chdir: ./../terraform/
 
-    - name: Apply Terraform Configuration
-      command: terraform apply -auto-approve
-      args:
-        chdir: ./../terraform/
-
     - name: Get Terraform Output
       command: terraform output resource_group_name  # Specify the output variable name
       args:
