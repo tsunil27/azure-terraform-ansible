@@ -4,7 +4,6 @@
   gather_facts: no  # Set to no if you don’t need facts
   tasks:
     - name: Initialize Terraform
-      command: pwd 
       command: terraform init      
       args:
         chdir: ./../terraform/ 
