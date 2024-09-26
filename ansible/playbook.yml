@@ -1,34 +1,9 @@
-- name: Run Terraform via Ansible
-  hosts: localhost
-  become: yes
-  tasks:
-    - name: Ensure Terraform is installed
-      command: "which terraform"
-      register: terraform_installed
-      ignore_errors: true
+- name: Initialize Terraform
+  command: terraform init
+  args:
+    chdir: /path/to/terraform/folder
 
-    - name: Install Terraform if not installed
-      shell: |
-        curl -Lo /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
-        unzip /tmp/terraform.zip -d /usr/local/bin/
-      when: terraform_installed.rc != 0
-
-    - name: Ensure Azure CLI is authenticated (via `az login`)
-      command: "az account show"
-      register: az_login_status
-      ignore_errors: true
-
-    - name: Fail if not authenticated with Azure CLI
-      fail:
-        msg: "Azure CLI is not authenticated. Please run `az login`."
-      when: az_login_status.rc != 0
-
-    - name: Initialize Terraform
-      command: terraform init
-      args:
-        chdir: ./terraform
-
-    - name: Apply Terraform
-      command: terraform apply -auto-approve
-      args:
-        chdir: ./terraform
+- name: Apply Terraform
+  command: terraform apply -auto-approve
+  args:
+    chdir: /path/to/terraform/folder
