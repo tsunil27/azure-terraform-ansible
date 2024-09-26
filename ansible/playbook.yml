@@ -6,4 +6,4 @@
     - name: Initialize Terraform
       command: terraform init
       args:
-        chdir: ./terraform/main.tf  # Change to your Terraform directory
+        chdir: ././terraform/  # Change to your Terraform directory
