@@ -1,6 +1,8 @@
 provider "azurerm" {
   features {}
+  subscription_id = var.subscription_id   # Use a variable for flexibility
 }
+
 
 data "azurerm_subscription" "current" {}
 
