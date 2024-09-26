@@ -1,9 +1,9 @@
-- name: Initialize Terraform
-  command: terraform init
-  args:
-    chdir: ./terraform
 
-- name: Apply Terraform
-  command: terraform apply -auto-approve
-  args:
-    chdir: ./terraform
+- name: Initialize Terraform
+  hosts: localhost  # Target the localhost
+  gather_facts: no  # Set to no if you don’t need facts
+  tasks:
+    - name: Initialize Terraform
+      command: terraform init
+      args:
+        chdir: /path/to/your/terraform/directory  # Change to your Terraform directory
