@@ -26,9 +26,9 @@
     - name: Initialize Terraform
       command: terraform init
       args:
-        chdir: .
+        chdir: ./terraform
 
     - name: Apply Terraform
       command: terraform apply -auto-approve
       args:
-        chdir: .
+        chdir: ./terraform
