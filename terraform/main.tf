@@ -91,9 +91,9 @@ resource "azurerm_lb_rule" "lbnatrule" {
   probe_id                       = azurerm_lb_probe.vmss.id
 }
 
-resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
+resource "azurerm_virtual_machine_scale_set" "vmss" {
   name                = "vmscaleset"
-  location            = var.location
+  location            = "eastus"
   resource_group_name = azurerm_resource_group.vmss.name
   upgrade_policy_mode = "Manual"
 
