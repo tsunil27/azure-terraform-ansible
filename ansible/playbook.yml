@@ -14,11 +14,15 @@
       command: terraform init
       args:
         chdir: ./../terraform/
-
     - name: Apply Terraform to provision VM
       command: terraform apply -auto-approve
       args:
         chdir: ./../terraform/
+      environment:
+        ARM_SUBSCRIPTION_ID: "{{ lookup('env', 'ARM_SUBSCRIPTION_ID') }}"
+        ARM_CLIENT_ID: "{{ lookup('env', 'ARM_CLIENT_ID') }}"
+        ARM_CLIENT_SECRET: "{{ lookup('env', 'ARM_CLIENT_SECRET') }}"
+        ARM_TENANT_ID: "{{ lookup('env', 'ARM_TENANT_ID') }}"
       register: terraform_output
 
     - name: Show Terraform Apply Output
