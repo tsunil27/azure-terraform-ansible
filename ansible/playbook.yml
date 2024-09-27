@@ -1,4 +1,4 @@
-- name: Initialize and Apply Terraform
+- name: Initialize and Apply Terraform to create VM
   hosts: localhost
   gather_facts: no
   tasks:
@@ -15,12 +15,30 @@
       args:
         chdir: ./../terraform/
 
-    - name: Get Terraform Output
-      command: terraform output resource_group_name  # Specify the output variable name
+    - name: Apply Terraform to provision VM
+      command: terraform apply -auto-approve
       args:
         chdir: ./../terraform/
-      register: output_result
+      register: terraform_output
 
-    - name: Show Resource Group Name
+    - name: Show Terraform Apply Output
       debug:
-        msg: "Resource Group Name: {{ output_result.stdout }}"
+        msg: "{{ terraform_output.stdout }}"
+
+    - name: Get VM Public IP from Terraform Output
+      command: terraform output public_ip_address
+      args:
+        chdir: ./../terraform/
+      register: vm_public_ip_output
+
+    - name: Show VM Public IP
+      debug:
+        msg: "The Public IP of the created VM is: {{ vm_public_ip_output.stdout }}"
+
+    - name: Check Azure Virtual Machine Status
+      command: az vm show --resource-group example-resources --name example-vm --query "provisioningState"
+      register: vm_status_output
+
+    - name: Show Azure VM Status
+      debug:
+        msg: "The VM provisioning status is: {{ vm_status_output.stdout }}"
