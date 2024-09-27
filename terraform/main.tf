@@ -10,6 +10,7 @@ terraform {
 }
 
 provider "azurerm" {
+  features {}  # Add this empty block
 }
 
 resource "azurerm_resource_group" "example" {
@@ -20,8 +21,8 @@ resource "azurerm_resource_group" "example" {
 resource "azurerm_virtual_network" "example" {
   name                = "example-network"
   address_space       = ["10.0.0.0/16"]
-  location            = "eastus"
-  resource_group_name = "stanuku-rg"
+  location            = "East US"  # Change "eastus" to "East US" for consistency
+  resource_group_name = azurerm_resource_group.example.name  # Use the resource group created above
 }
 
 resource "azurerm_subnet" "example" {
