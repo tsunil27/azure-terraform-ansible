@@ -1,33 +1,19 @@
-variable "resource_group_name" {
-  description = "stanuku-rg"
-  default     = "stanuku-rg"
+variable "client_id" {
+  description = "Client ID of the Service Principal"
+  type        = string
 }
 
-variable "location" {
-  default     = "eastus"
-  description = "Location where resources will be created"
+variable "client_secret" {
+  description = "Client Secret of the Service Principal"
+  type        = string
 }
 
-variable "tags" {
-  description = "Map of the tags to use for the resources that are deployed"
-  type        = map(string)
-  default = {
-    environment = "codelab"
-  }
+variable "tenant_id" {
+  description = "Tenant ID"
+  type        = string
 }
 
-variable "application_port" {
-  description = "Port that you want to expose to the external load balancer"
-  default     = 80
-}
-
-variable "admin_user" {
-  description = "User name to use as the admin account on the VMs that will be part of the VM scale set"
-  default     = "azureuser"
-}
-
-variable "admin_password" {
-  description = "Default password for admin account"
-  default     = "ChangeMe123!"
-  sensitive   = true
+variable "subscription_id" {
+  description = "Subscription ID"
+  type        = string
 }
